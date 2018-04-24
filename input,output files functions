@@ -1,0 +1,140 @@
+----------input-------------
+/******************************************************************************
+ * AUTHOR     : Chris Burrell, Nick Terrazas
+ * STUDENT ID : 1009369,
+ * Lab        : #25b -  Array Train - Set #2
+ * CLASS      : CS1A
+ * SECTION    : MW: 8am
+ * DUE DATE   : 4/25/18
+ *****************************************************************************/
+#include "header.h"
+
+/***************************************************************************
+ * FUNCTION ReadInputFromFile
+ * --------------------------------------------------------------------------
+ * This function reads the contents of the input file and puts it into the
+ * 		corresponding arrays.
+ * --------------------------------------------------------------------------
+ * PRE-CONDITIONS
+ *      The following parameters must have defined values:
+ *         	AR_SIZE  : The size of the array
+ *         	nameAr	 : The array that contains the names
+ *         	ageAr	 : The array that contains the ages
+ * POST-CONDITIONS
+ *      ==> returns nothing
+ ***************************************************************************/
+void ReadInputFromFile(int ageAr[], 	  //IN - The size of the array
+					   string nameAr[],	  //IN - The array that has the names
+					   const int AR_SIZE) //IN - The array that has the ages
+{
+
+	ifstream ifile;
+	int index;
+	index = 0;
+	ifile.open("inputfile.txt");
+
+	//This loops until the eof marker is met or the array is full
+	while(ifile && index < AR_SIZE)
+	{
+		getline(ifile, nameAr[index]);
+
+
+		ifile >> ageAr[index];
+
+		ifile.ignore(1000, '\n');
+		ifile.ignore(1000, '\n');
+
+		index++;
+	}
+
+	ifile.close();
+}
+
+
+
+
+
+
+
+
+
+
+
+--------output------------
+/******************************************************************************
+ * AUTHOR     : Chris Burrell, Nick Terrazas
+ * STUDENT ID : 1009369,
+ * Lab        : #25b -  Array Train - Set #2
+ * CLASS      : CS1A
+ * SECTION    : MW: 8am
+ * DUE DATE   : 4/25/18
+ *****************************************************************************/
+#include "header.h"
+
+/***************************************************************************
+ * FUNCTION OutputArrayToFile
+ * --------------------------------------------------------------------------
+ * Outputs the contents to the array to the output file
+ * --------------------------------------------------------------------------
+ *PRE-CONDITIONS
+ *      The following parameters must have defined values:
+ *         	AR_SIZE  : The size of the array
+ *         	nameAr	 : The array that contains the names
+ *         	ageAr	 : The array that contains the ages
+ * POST-CONDITIONS
+ *      ==> returns nothing
+ ***************************************************************************/
+void OutputArrayToFile(const string NAME_AR[], //IN - The array that contains
+										       //     the names
+					   const int AGE_AR[],	   //IN - The array that contains
+					   	   	   	   	   	   	   // 	  the ages
+					   const int AR_SIZE)      //IN - The size of the array
+{
+	/**************************************************************************
+	* CONSTANTS
+	* ------------------------------------------------------------------------
+	* OUTPUT - USED FOR CLASS HEADING
+	*-------------------------------------------------------------------------
+	*PROGRAMMER[] : Programmer's Name
+    *CLASS[]      : Student's Course
+    *SECTION[]    : Class Days and Times
+	*LAB_NUM      : Lab Number (specific to this Lab / Assignment)
+	*LAB_NAME[]   : Title of the Lab / Assignment
+	*************************************************************************/
+	const char PROGRAMMER[] = "Chris Burrell, Nick Terrazas";
+	const char CLASS[]      = "CS1A";
+	const char SECTION[]   = "MW: 8:00 am";
+	const int  LAB_NUM       = 25;
+	const char LAB_NAME[]   = "Array Train - Set2";
+	const int COL_SIZE1 = 10;
+	const int COL_SIZE2 = 3;
+
+	ofstream ofile;
+	int index;
+	index = 0;
+	ofile.open("outputfile.txt");
+
+	//OUTPUT the class heading
+	ofile << left;
+	ofile << "***********************************************************\n";
+	ofile << "*  PROGRAMMED BY : " << PROGRAMMER << endl;
+	ofile << "*  "     << setw(14) << "CLASS"    << ": " << CLASS    << endl;
+	ofile << "*  "     << setw(14) << "SECTION"  << ": " << SECTION  << endl;
+	ofile << "*  LAB #"<< setw(9) << LAB_NUM    << ": "<< LAB_NAME << endl;
+	ofile << "************************************************************\n\n";
+	ofile << right;
+
+	ofile << left << setw(COL_SIZE1) << "NAME" << right
+			     << setw(COL_SIZE2) << "AGE\n";
+	ofile << left << setw(COL_SIZE1) << "____" << right
+			     << setw(COL_SIZE2) << "___\n";
+	//Loops until the entire array has been accounted for
+	for(index = 0; index < AR_SIZE; index++)
+	{
+		ofile << left << setw(COL_SIZE1) << NAME_AR[index] << right
+				      << setw(COL_SIZE2) << AGE_AR[index] << endl;
+
+	}
+
+	ofile.close();
+}
